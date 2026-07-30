@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Plan Żywieniowy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+
+--primary:#1d4ed8;
+--primary2:#2563eb;
+--primary3:#3b82f6;
+--light:#eff6ff;
+--card:#ffffff;
+--bg:#eaf3ff;
+--text:#1e293b;
+--muted:#64748b;
+--border:#dbeafe;
+
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:
+
+radial-gradient(circle at top,#bfdbfe 0%,#dbeafe 25%,#eff6ff 60%,#ffffff 100%);
+color:var(--text);
+
+padding:20px;
+
+}
+
+.container{
+
+max-width:1200px;
+margin:auto;
+
+}
+
+header{
+
+background:
+linear-gradient(135deg,#2563eb,#1d4ed8);
+
+border-radius:28px;
+
+padding:35px;
+
+color:white;
+
+box-shadow:
+
+0 25px 60px rgba(37,99,235,.25);
+
+margin-bottom:35px;
+
+position:sticky;
+
+top:15px;
+
+z-index:100;
+
+backdrop-filter:blur(20px);
+
+}
+
+header h1{
+
+font-size:38px;
+
+font-weight:700;
+
+margin-bottom:8px;
+
+}
+
+header::after{
+
+content:"Zdrowo • Smacznie • Na cel";
+
+display:block;
+
+opacity:.85;
+
+margin-top:6px;
+
+font-size:15px;
+
+}
+
+.info{
+
+display:grid;
+
+grid-template-columns:repeat(6,1fr);
+
+gap:18px;
+
+margin-top:28px;
+
+}
+
+.box{
+
+background:rgba(255,255,255,.18);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.25);
+
+border-radius:22px;
+
+padding:22px;
+
+transition:.25s;
+
+}
+
+.box:hover{
+
+transform:translateY(-5px);
+
+background:rgba(255,255,255,.26);
+
+}
+
+.box h3{
+
+font-size:13px;
+
+font-weight:500;
+
+opacity:.8;
+
+margin-bottom:10px;
+
+}
+
+.box span{
+
+font-size:34px;
+
+font-weight:700;
+
+color:white;
+
+}
+
+.day{
+
+background:white;
+
+border-radius:28px;
+
+overflow:hidden;
+
+margin-bottom:28px;
+
+box-shadow:
+
+0 15px 40px rgba(37,99,235,.08);
+
+transition:.25s;
+
+border:1px solid var(--border);
+
+}
+
+.day:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+
+0 22px 55px rgba(37,99,235,.15);
+
+}
+
+.day h2{
+
+background:
+
+linear-gradient(90deg,#2563eb,#3b82f6);
+
+padding:22px 28px;
+
+font-size:28px;
+
+color:white;
+
+letter-spacing:.3px;
+}
+
+table{
+
+width:100%;
+
+border-collapse:separate;
+border-spacing:0;
+
+overflow:hidden;
+
+border-radius:18px;
+
+}
+
+th{
+
+background:#eff6ff;
+
+color:#1d4ed8;
+
+font-size:15px;
+
+padding:16px;
+
+}
+
+td{
+
+padding:18px;
+
+vertical-align:top;
+
+border-bottom:1px solid #edf4ff;
+
+line-height:1.8;
+
+}
+
+tr:hover{
+
+background:#f8fbff;
+
+}
+
+.summary{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:22px 28px;
+
+background:#eff6ff;
+
+font-weight:700;
+
+font-size:17px;
+
+}
+
+.shopping{
+
+background:white;
+
+border-radius:28px;
+
+padding:35px;
+
+box-shadow:0 15px 40px rgba(37,99,235,.08);
+
+margin-top:40px;
+
+}
+
+.shopping h2{
+
+color:#2563eb;
+
+margin-bottom:25px;
+
+}
+
+.shopping-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:20px;
+
+}
+
+.shopping-grid>div{
+
+background:#f8fbff;
+
+padding:22px;
+
+border-radius:22px;
+
+border:1px solid #dbeafe;
+
+transition:.25s;
+
+}
+
+.shopping-grid>div:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0 10px 25px rgba(37,99,235,.12);
+
+}
+
+.shopping h3{
+
+color:#2563eb;
+
+margin-bottom:12px;
+
+}
+
+.shopping li{
+
+list-style:none;
+
+padding:7px 0;
+
+}
+
+.shopping li::before{
+
+content:"☑ ";
+
+color:#2563eb;
+
+}
+
+.rules{
+
+margin-top:40px;
+
+background:white;
+
+padding:35px;
+
+border-radius:28px;
+
+box-shadow:0 15px 40px rgba(37,99,235,.08);
+
+}
+
+.rules h2{
+
+color:#2563eb;
+
+margin-bottom:20px;
+
+}
+
+.rules ul{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:15px;
+
+}
+
+.rules li{
+
+list-style:none;
+
+padding:18px;
+
+border-radius:18px;
+
+background:#f8fbff;
+
+border:1px solid #dbeafe;
+
+}
+
+.rules li:hover{
+
+background:#eaf3ff;
+
+}
+
+strong{
+
+color:#1d4ed8;
+
+}
+
+@media(max-width:1000px){
+
+.info{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+header{
+
+padding:25px;
+
+position:relative;
+
+top:0;
+
+}
+
+header h1{
+
+font-size:28px;
+
+}
+
+.day h2{
+
+font-size:22px;
+
+padding:18px;
+
+}
+
+table,
+tbody,
+tr,
+td,
+th{
+
+display:block;
+
+width:100%;
+
+}
+
+th{
+
+display:none;
+
+}
+
+tr{
+
+padding:15px;
+
+border-bottom:1px solid #e5efff;
+
+}
+
+td{
+
+border:none;
+
+padding:8px 0;
+
+}
+
+td:first-child{
+
+font-size:20px;
+
+font-weight:700;
+
+color:#2563eb;
+
+}
+
+.summary{
+
+flex-direction:column;
+
+gap:10px;
+
+font-size:18px;
+
+}
+
+.shopping-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.rules ul{
+
+grid-template-columns:1fr;
+
+}
+
+body{
+
+padding:12px;
+
+}
+
+}
+
+.day h2{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.badge{
+
+background:white;
+
+color:#2563eb;
+
+padding:8px 16px;
+
+border-radius:50px;
+
+font-size:14px;
+
+font-weight:700;
+
+box-shadow:
+0 6px 18px rgba(0,0,0,.15);
+
+}
+
+td{
+
+transition:.2s;
+
+}
+
+tr{
+
+transition:.2s;
+
+}
+
+tbody tr:hover{
+
+transform:scale(1.01);
+
+box-shadow:0 6px 20px rgba(37,99,235,.10);
+
+}
+
+td:first-child{
+
+font-weight:700;
+
+font-size:18px;
+
+color:#2563eb;
+
+white-space:nowrap;
+
+}
+
+strong{
+
+display:block;
+
+font-size:18px;
+
+margin-bottom:8px;
+
+color:#1d4ed8;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<h1>🥗 Mój Plan Żywieniowy</h1>
+
+<div class="info">
+
+<div class="box">
+<div class="icon">📏</div>
+<h3>Wzrost</h3>
+<span>181 cm</span>
+</div>
+
+<div class="box">
+<div class="icon">⚖️</div>
+<h3>Waga</h3>
+<span>88.5 kg</span>
+</div>
+
+<div class="box">
+<div class="icon">❤️</div>
+<h3>BMI</h3>
+<span>27.0</span>
+</div>
+
+<div class="box">
+<div class="icon">🎯</div>
+<h3>Cel</h3>
+<span>81 kg</span>
+</div>
+
+<div class="box">
+<div class="icon">🔥</div>
+<h3>Kalorie</h3>
+<span>2200</span>
+</div>
+
+<div class="box">
+<div class="icon">💪</div>
+<h3>Białko</h3>
+<span>160 g</span>
+</div>
+
+</div>
+
+</header>
+
+<!-- TUTAJ BĘDZIEMY DODAWAĆ DNI -->
+
+<section class="day">
+
+<h2>📅 Poniedziałek</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>07:00</td>
+<td>🥣 Śniadanie</td>
+<td>
+<strong>Owsianka ze Skyrem</strong><br><br>
+
+• 80 g płatków owsianych<br>
+• 200 g Skyra naturalnego<br>
+• 100 g borówek (mogą być mrożone)<br>
+• 10 g masła orzechowego
+</td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>🥛 II śniadanie</td>
+<td>
+<strong>Serek wiejski</strong><br><br>
+
+• 200 g serka wiejskiego<br>
+• 1 jabłko
+</td>
+</tr>
+
+<tr>
+<td>14:00</td>
+<td>🍗 Obiad</td>
+<td>
+<strong>Kurczak z ryżem</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 100 g ryżu (waga przed gotowaniem)<br>
+• 200 g brokułów<br>
+• 10 g oliwy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🧀 Kolacja</td>
+<td>
+<strong>Twaróg z warzywami</strong><br><br>
+
+• 250 g twarogu półtłustego<br>
+• pomidor<br>
+• ogórek<br>
+• szczypiorek
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+
+<div>🔥 Kalorie: około <strong>2180 kcal</strong></div>
+
+<div>💪 Białko: około <strong>165 g</strong></div>
+
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Wtorek</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>07:00</td>
+<td>🍳 Śniadanie</td>
+<td>
+
+<strong>Jajecznica</strong><br><br>
+
+• 4 jajka<br>
+• 2 kromki chleba pełnoziarnistego<br>
+• pomidor<br>
+• szczypiorek
+
+</td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>🥣 II śniadanie</td>
+<td>
+
+<strong>Skyr</strong><br><br>
+
+• 200 g Skyra<br>
+• 1 banan
+
+</td>
+</tr>
+
+<tr>
+<td>14:00</td>
+<td>🍗 Obiad</td>
+<td>
+
+<strong>Kurczak z ziemniakami</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 300 g ziemniaków<br>
+• surówka z marchewki<br>
+• 10 g oliwy
+
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🥗 Kolacja</td>
+<td>
+
+<strong>Serek wiejski</strong><br><br>
+
+• 200 g serka wiejskiego<br>
+• papryka<br>
+• ogórek
+
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+
+<div>🔥 Kalorie: około <strong>2210 kcal</strong></div>
+
+<div>💪 Białko: około <strong>161 g</strong></div>
+
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Środa</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>07:00</td>
+<td>🥪 Śniadanie</td>
+<td>
+<strong>Kanapki z twarożkiem</strong><br><br>
+
+• 3 kromki chleba pełnoziarnistego<br>
+• 150 g twarogu półtłustego<br>
+• rzodkiewka<br>
+• szczypiorek<br>
+• pomidor
+</td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>🥛 II śniadanie</td>
+<td>
+<strong>Serek wiejski</strong><br><br>
+
+• 200 g serka wiejskiego<br>
+• 1 banan
+</td>
+</tr>
+
+<tr>
+<td>14:00</td>
+<td>🍝 Obiad</td>
+<td>
+<strong>Makaron z kurczakiem</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 100 g makaronu pełnoziarnistego (suchy)<br>
+• 150 g passaty pomidorowej<br>
+• przyprawy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🥗 Kolacja</td>
+<td>
+<strong>Sałatka z kurczakiem</strong><br><br>
+
+• 150 g kurczaka<br>
+• mix sałat<br>
+• pomidor<br>
+• ogórek<br>
+• 10 g oliwy
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div>🔥 Kalorie: <strong>2200 kcal</strong></div>
+<div>💪 Białko: <strong>163 g</strong></div>
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Czwartek</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>07:00</td>
+<td>🥣 Śniadanie</td>
+<td>
+<strong>Owsianka ze Skyrem</strong><br><br>
+
+• 80 g płatków owsianych<br>
+• 200 g Skyra<br>
+• 100 g malin (świeże lub mrożone)<br>
+• 10 g masła orzechowego
+</td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>🍎 II śniadanie</td>
+<td>
+<strong>Skyr</strong><br><br>
+
+• 200 g Skyra<br>
+• 1 jabłko
+</td>
+</tr>
+
+<tr>
+<td>14:00</td>
+<td>🍗 Obiad</td>
+<td>
+<strong>Kurczak z ryżem</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 100 g ryżu (suchy)<br>
+• 200 g brokułów<br>
+• 10 g oliwy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🧀 Kolacja</td>
+<td>
+<strong>Twaróg</strong><br><br>
+
+• 250 g twarogu półtłustego<br>
+• papryka<br>
+• ogórek
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div>🔥 Kalorie: <strong>2190 kcal</strong></div>
+<div>💪 Białko: <strong>166 g</strong></div>
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Piątek</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>07:00</td>
+<td>🍳 Śniadanie</td>
+<td>
+<strong>Omlet</strong><br><br>
+
+• 4 jajka<br>
+• 40 g płatków owsianych<br>
+• 1 banan
+</td>
+</tr>
+
+<tr>
+<td>10:30</td>
+<td>🥛 II śniadanie</td>
+<td>
+<strong>Serek wiejski</strong><br><br>
+
+• 200 g serka wiejskiego<br>
+• 1 jabłko
+</td>
+</tr>
+
+<tr>
+<td>14:00</td>
+<td>🍗 Obiad</td>
+<td>
+<strong>Kurczak z ziemniakami</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 300 g ziemniaków<br>
+• surówka z kapusty<br>
+• 10 g oliwy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🥪 Kolacja</td>
+<td>
+<strong>Kanapki z szynką</strong><br><br>
+
+• 3 kromki chleba pełnoziarnistego<br>
+• 120 g szynki z indyka<br>
+• pomidor<br>
+• ogórek
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div>🔥 Kalorie: <strong>2220 kcal</strong></div>
+<div>💪 Białko: <strong>160 g</strong></div>
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Sobota</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>08:00</td>
+<td>🥪 Śniadanie</td>
+<td>
+<strong>Kanapki z jajkiem</strong><br><br>
+
+• 3 kromki chleba pełnoziarnistego<br>
+• 3 jajka gotowane<br>
+• pomidor<br>
+• szczypiorek
+</td>
+</tr>
+
+<tr>
+<td>11:00</td>
+<td>🥛 II śniadanie</td>
+<td>
+<strong>Serek wiejski</strong><br><br>
+
+• 200 g serka wiejskiego<br>
+• 1 banan
+</td>
+</tr>
+
+<tr>
+<td>15:00</td>
+<td>🍗 Obiad</td>
+<td>
+<strong>Kurczak z ryżem</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 100 g ryżu (suchy)<br>
+• 200 g mieszanki warzyw<br>
+• 10 g oliwy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🧀 Kolacja</td>
+<td>
+<strong>Twaróg</strong><br><br>
+
+• 250 g twarogu półtłustego<br>
+• rzodkiewka<br>
+• ogórek
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div>🔥 Kalorie: <strong>2210 kcal</strong></div>
+<div>💪 Białko: <strong>162 g</strong></div>
+</div>
+
+</section>
+
+<section class="day">
+
+<h2>📅 Niedziela</h2>
+
+<table>
+
+<tr>
+<th width="90">Godzina</th>
+<th width="170">Posiłek</th>
+<th>Skład</th>
+</tr>
+
+<tr>
+<td>08:00</td>
+<td>🥣 Śniadanie</td>
+<td>
+<strong>Owsianka ze Skyrem</strong><br><br>
+
+• 80 g płatków owsianych<br>
+• 200 g Skyra<br>
+• 100 g borówek<br>
+• 10 g masła orzechowego
+</td>
+</tr>
+
+<tr>
+<td>11:00</td>
+<td>🥛 II śniadanie</td>
+<td>
+<strong>Skyr</strong><br><br>
+
+• 200 g Skyra<br>
+• 1 jabłko
+</td>
+</tr>
+
+<tr>
+<td>15:00</td>
+<td>🍗 Obiad</td>
+<td>
+<strong>Kurczak z ziemniakami</strong><br><br>
+
+• 200 g piersi kurczaka<br>
+• 300 g ziemniaków<br>
+• surówka<br>
+• 10 g oliwy
+</td>
+</tr>
+
+<tr>
+<td>19:00</td>
+<td>🥗 Kolacja</td>
+<td>
+<strong>Sałatka z kurczakiem</strong><br><br>
+
+• 150 g kurczaka<br>
+• mix sałat<br>
+• pomidor<br>
+• ogórek
+</td>
+</tr>
+
+</table>
+
+<div class="summary">
+<div>🔥 Kalorie: <strong>2190 kcal</strong></div>
+<div>💪 Białko: <strong>161 g</strong></div>
+</div>
+
+</section>
+
+<section class="shopping">
+
+<h2>🛒 Lista zakupów na tydzień</h2>
+
+<div class="shopping-grid">
+
+<div>
+<h3>🥩 Mięso</h3>
+<ul>
+<li>☐ 2 kg piersi z kurczaka</li>
+<li>☐ 500 g szynki z indyka</li>
+</ul>
+</div>
+
+<div>
+<h3>🥛 Nabiał</h3>
+<ul>
+<li>☐ 7 × Skyr naturalny</li>
+<li>☐ 4 × serek wiejski 200 g</li>
+<li>☐ 1 kg twarogu półtłustego</li>
+<li>☐ 18 jajek</li>
+</ul>
+</div>
+
+<div>
+<h3>🥦 Warzywa</h3>
+<ul>
+<li>☐ 1 kg pomidorów</li>
+<li>☐ 4 ogórki</li>
+<li>☐ 4 papryki</li>
+<li>☐ 1 kg brokułów</li>
+<li>☐ Mix sałat</li>
+<li>☐ Szczypiorek</li>
+<li>☐ Rzodkiewka</li>
+<li>☐ Marchew</li>
+<li>☐ Kapusta na surówkę</li>
+</ul>
+</div>
+
+<div>
+<h3>🍎 Owoce</h3>
+<ul>
+<li>☐ 5 bananów</li>
+<li>☐ 5 jabłek</li>
+<li>☐ 500 g borówek lub malin</li>
+</ul>
+</div>
+
+<div>
+<h3>🍚 Produkty suche</h3>
+<ul>
+<li>☐ Płatki owsiane</li>
+<li>☐ Ryż</li>
+<li>☐ Makaron pełnoziarnisty</li>
+<li>☐ Chleb pełnoziarnisty</li>
+<li>☐ Oliwa z oliwek</li>
+<li>☐ Masło orzechowe 100%</li>
+<li>☐ Passata pomidorowa</li>
+</ul>
+</div>
+
+<div>
+<h3>🧂 Przyprawy</h3>
+<ul>
+<li>☐ Sól</li>
+<li>☐ Pieprz</li>
+<li>☐ Papryka słodka</li>
+<li>☐ Papryka wędzona</li>
+<li>☐ Czosnek granulowany</li>
+<li>☐ Oregano</li>
+<li>☐ Bazylia</li>
+</ul>
+</div>
+
+</div>
+
+</section>
+
+<section class="rules">
+
+<h2>📌 Zasady</h2>
+
+<ul>
+<li>✔ Jedz co 3–4 godziny.</li>
+<li>✔ Do obiadu i kolacji zawsze dodawaj warzywa.</li>
+<li>✔ Pij głównie wodę, kawę i herbatę bez cukru.</li>
+<li>✔ Słodycze zostaw na jedną zaplanowaną porcję w tygodniu.</li>
+<li>✔ Waż się raz w tygodniu rano, na czczo.</li>
+<li>✔ Jeśli po 3–4 tygodniach waga nie spada, zmniejsz porcję ryżu, makaronu lub ziemniaków o około 20–30 g (suchego produktu lub równowartość).</li>
+</ul>
+
+</section>
+
+
+
+<!-- TUTAJ BĘDZIE LISTA ZAKUPÓW -->
+
+<!-- TUTAJ BĘDĄ ZASADY -->
+
+</div>
+
+</body>
+</html>
